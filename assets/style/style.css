@@ -20,6 +20,7 @@ body {
     box-shadow: 36px 22px 73px 0px rgba(0,0,0,0.75);
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     height: 500px;
     width: 320px;
 }
@@ -27,7 +28,18 @@ body {
 .display-results {
     background-color: #1A1B1D;
     border-radius: 30px 30px 0px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: end;
+    padding: 15px;
     height: 35%;
+}
+
+.previous-operation,
+.current-operation {
+    margin-left: -40px;
+    text-align: end;
     width: 100%;
 }
 
@@ -53,6 +65,7 @@ table {
 td:hover {
     background-color: #1A1B1D;
     border-radius: 60px;
+    cursor: pointer;
 }
 
 .last-column {
