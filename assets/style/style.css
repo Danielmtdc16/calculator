@@ -34,6 +34,37 @@ body {
 .typing-field {
     background-color: #1f2022;
     border-radius: 30px;
+    display: flex;
     height: 65%;
     width: 100%;
+}
+
+table {
+    color: #B1B1B1;
+    text-align: center;
+    font-size: 25px;
+    padding: 15px;
+    width: 100%;
+}
+
+.first-line {
+    color: #7C23D3;
+}
+
+.last-column {
+    color: #7C23D3;
+}
+
+.division {
+    font-size: 20px;
+}
+
+.equals-button {
+    background-color: #7C23D5;
+    border-radius: 60px;
+    color: white;
+}
+
+.flask {
+    color: #7C23D3;
 }
