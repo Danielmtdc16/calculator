@@ -7,7 +7,7 @@
 }
 
 body {
-    background-color: #3D4248;
+    background-color: #2a2d31;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,6 +50,10 @@ table {
 .first-line {
     color: #7C23D3;
 }
+td:hover {
+    background-color: #1A1B1D;
+    border-radius: 60px;
+}
 
 .last-column {
     color: #7C23D3;
@@ -68,3 +72,4 @@ table {
 .flask {
     color: #7C23D3;
 }
+
