@@ -1,5 +1,8 @@
 const display_results = document.querySelector(".display-results");
 
+const current_operation = document.querySelector(".current-operation");
+const previous_operation = document.querySelector(".previous-operation");
+
 const buttons = document.querySelectorAll(".button");
 
 class Calculator {
@@ -21,3 +24,8 @@ buttons.forEach(btn => {
     });
 
 });
+
+function clearScreen() {
+    current_operation.innerHTML = "";
+    previous_operation.innerHTML = "";
+}
