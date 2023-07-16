@@ -32,6 +32,7 @@ body {
     flex-direction: column;
     align-items: end;
     justify-content: end;
+    gap: 10px;
     padding: 15px;
     height: 35%;
 }
@@ -40,7 +41,18 @@ body {
 .current-operation {
     margin-left: -40px;
     text-align: end;
+    overflow-wrap: break-word;
     width: 100%;
+}
+
+.previous-operation {
+    color: #a3a3a3;
+    font-size: 20px;
+}
+
+.current-operation {
+    color: white;
+    font-size: 25px;
 }
 
 .typing-field {
