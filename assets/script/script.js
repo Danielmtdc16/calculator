@@ -47,6 +47,14 @@ class Calculator {
                 resultOperation = previous - current;
                 this.refreshScreen(resultOperation, operation, current, previous);
                 break;
+            case "x":
+                resultOperation = previous * current;
+                this.refreshScreen(resultOperation, operation, current, previous);
+                break;
+            case "/":
+                resultOperation = previous / current;
+                this.refreshScreen(resultOperation, operation, current, previous);
+                break;
             default:
                 return;
         }
