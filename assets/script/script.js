@@ -26,6 +26,13 @@ class Calculator {
     
     processOperation(operation) {
         
+        if (this.current_operation_text.innerText === "") {
+            if (this.previous_operation_text !== "") {
+                this.changeOperation(operation);
+            }
+            return;
+        }
+
         let resultOperation;
         const previous = +this.previous_operation_text.innerText.split(" ")[0];
         const current = +this.current_operation_text.innerText;
@@ -36,7 +43,10 @@ class Calculator {
                 resultOperation = previous + current;
                 this.refreshScreen(resultOperation, operation, current, previous);
                 break;
-                
+            case "-":
+                resultOperation = previous - current;
+                this.refreshScreen(resultOperation, operation, current, previous);
+                break;
             default:
                 return;
         }
@@ -53,8 +63,19 @@ class Calculator {
                 resultOperation = current;
             }
             this.previous_operation_text.innerText = `${resultOperation} ${operation}`;
+            this.current_operation_text.innerText = "";
             this.current_operation = "";
         }
+
+    }
+
+    changeOperation(operation) {
+
+        const operations = ["+", "-", "/", "x"];
+
+        if (!operations.includes(operation)) return;
+
+        this.previous_operation_text.innerText = this.previous_operation_text.innerText.slice(0, -1) + operation;
 
     }
 
