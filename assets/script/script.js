@@ -1,15 +1,34 @@
 const display_results = document.querySelector(".display-results");
 
-const current_operation = document.querySelector(".current-operation");
-const previous_operation = document.querySelector(".previous-operation");
+const current_operation_text = document.querySelector("#current-operation");
+const previous_operation_text = document.querySelector("#previous-operation");
 
 const buttons = document.querySelectorAll(".button");
 
 class Calculator {
-    constructor(){
+    constructor(previous_operation_text, current_operation_text){
+        this.previous_operation_text = previous_operation_text;
+        this.current_operation_text = current_operation_text;
+        this.current_operation = "";
+    }
 
+    addNumbers(number) {
+        this.current_operation += number;
+        this.refreshScreen();
+    }
+
+    refreshScreen() {
+        this.current_operation_text.innerText = this.current_operation;
+    }
+
+    clearScreen() {
+        this.current_operation = "";
+        this.current_operation_text.innerText = "";
+        this.previous_operation_text.innerText = "";
     }
 }
+
+const calculator = new Calculator(previous_operation_text, current_operation_text);
 
 buttons.forEach(btn => {
 
@@ -17,15 +36,12 @@ buttons.forEach(btn => {
         const value = btn.textContent;
         
         if (+value >= 0 || value === ",") {
-
+            calculator.addNumbers(value)
         } else {
-
+            if (value === "C") calculator.clearScreen();
+            
         }
     });
 
 });
 
-function clearScreen() {
-    current_operation.innerHTML = "";
-    previous_operation.innerHTML = "";
-}
