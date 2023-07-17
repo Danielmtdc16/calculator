@@ -6,6 +6,7 @@ const previous_operation_text = document.querySelector("#previous-operation");
 const buttons = document.querySelectorAll(".button");
 
 class Calculator {
+    saveOperation = "";
     constructor(previous_operation_text, current_operation_text){
         this.previous_operation_text = previous_operation_text;
         this.current_operation_text = current_operation_text;
@@ -20,21 +21,22 @@ class Calculator {
         this.refreshScreen();
     }
 
-    addition(num1, num2) {
-        return num1 + num2;
-    }
-    
     processOperation(operation) {
-        
         if (this.current_operation_text.innerText === "") {
             if (this.previous_operation_text !== "") {
                 this.changeOperation(operation);
             }
             return;
         }
-
+        if (current_operation_text.innerText !== "" && previous_operation_text.innerText !== "" && operation != this.saveOperation) {
+            this.processOperation(this.saveOperation);
+            this.saveOperation = operation;
+            return this.changeOperation(operation);
+        }
+        this.saveOperation = operation;
         let resultOperation;
         const previous = +this.previous_operation_text.innerText.split(" ")[0];
+        console.log(previous);
         const current = +this.current_operation_text.innerText;
 
         switch(operation)
@@ -67,9 +69,8 @@ class Calculator {
             this.current_operation_text.innerText = this.current_operation;
         }
         else {
-            if (previous === 0) {
-                resultOperation = current;
-            }
+            if (previous === 0) resultOperation = current;
+            
             this.previous_operation_text.innerText = `${resultOperation} ${operation}`;
             this.current_operation_text.innerText = "";
             this.current_operation = "";
@@ -78,7 +79,7 @@ class Calculator {
     }
 
     changeOperation(operation) {
-
+        this.saveOperation = operation;
         const operations = ["+", "-", "/", "x"];
 
         if (!operations.includes(operation)) return;
