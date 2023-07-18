@@ -22,13 +22,14 @@ class Calculator {
     }
 
     processOperation(operation) {
+        console.log("op atual: " + operation);
         if (this.current_operation_text.innerText === "") {
             if (this.previous_operation_text !== "") {
                 this.changeOperation(operation);
             }
             return;
         }
-        if (current_operation_text.innerText !== "" && previous_operation_text.innerText !== "" && operation != this.saveOperation) {
+        if (current_operation_text.innerText !== "" && previous_operation_text.innerText !== "" && operation != this.saveOperation && operation !== "C") {
             this.processOperation(this.saveOperation);
             this.saveOperation = operation;
             return this.changeOperation(operation);
@@ -57,6 +58,8 @@ class Calculator {
                 resultOperation = previous / current;
                 this.refreshScreen(resultOperation, operation, current, previous);
                 break;
+            case "C":
+                this.clearScreen();
             default:
                 return;
         }
