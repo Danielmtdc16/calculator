@@ -21,15 +21,22 @@ class Calculator {
         this.refreshScreen();
     }
 
+    clearScreen() {
+        this.current_operation = "";
+        this.current_operation_text.innerText = "";
+        this.previous_operation_text.innerText = "";
+    }
+
     processOperation(operation) {
         console.log("op atual: " + operation);
-        if (this.current_operation_text.innerText === "") {
+        if (this.current_operation_text.innerText === "" && operation !== "C") {
             if (this.previous_operation_text !== "") {
                 this.changeOperation(operation);
             }
             return;
         }
-        if (current_operation_text.innerText !== "" && previous_operation_text.innerText !== "" && operation != this.saveOperation && operation !== "C") {
+        if (previous_operation_text.innerText !== "" && operation != this.saveOperation && operation !== "C") {
+            console.log("oi");
             this.processOperation(this.saveOperation);
             this.saveOperation = operation;
             return this.changeOperation(operation);
@@ -37,11 +44,9 @@ class Calculator {
         this.saveOperation = operation;
         let resultOperation;
         const previous = +this.previous_operation_text.innerText.split(" ")[0];
-        console.log(previous);
         const current = +this.current_operation_text.innerText;
 
-        switch(operation)
-         {
+        switch(operation) {
             case "+":
                 resultOperation = previous + current;
                 this.refreshScreen(resultOperation, operation, current, previous);
@@ -89,12 +94,6 @@ class Calculator {
 
         this.previous_operation_text.innerText = this.previous_operation_text.innerText.slice(0, -1) + operation;
 
-    }
-
-    clearScreen() {
-        this.current_operation = "";
-        this.current_operation_text.innerText = "";
-        this.previous_operation_text.innerText = "";
     }
 }
 
