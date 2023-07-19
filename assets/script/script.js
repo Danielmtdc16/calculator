@@ -28,15 +28,16 @@ class Calculator {
     }
 
     processOperation(operation) {
-        console.log("op atual: " + operation);
+
+        const specialOperations = ["C", "DEL"];
+
         if (this.current_operation_text.innerText === "" && operation !== "C") {
             if (this.previous_operation_text !== "") {
                 this.changeOperation(operation);
             }
             return;
         }
-        if (previous_operation_text.innerText !== "" && operation != this.saveOperation && operation !== "C") {
-            console.log("oi");
+        if (previous_operation_text.innerText !== "" && operation != this.saveOperation && !specialOperations.includes(operation)) {
             this.processOperation(this.saveOperation);
             this.saveOperation = operation;
             return this.changeOperation(operation);
@@ -65,6 +66,12 @@ class Calculator {
                 break;
             case "C":
                 this.clearScreen();
+                break;
+            case "DEL":
+                this.current_operation = "";
+                this.current_operation_text.innerText = this.current_operation_text.innerText.slice(0, -1);
+                this.addNumbers(this.current_operation_text.innerText);
+                break;
             default:
                 return;
         }
