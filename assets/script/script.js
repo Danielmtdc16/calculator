@@ -31,6 +31,8 @@ class Calculator {
 
         const specialOperations = ["C", "DEL"];
 
+        if (this.current_operation_text.innerText == "" && previous_operation_text.innerText == "") return;
+
         if (this.current_operation_text.innerText === "" && operation !== "C") {
             if (this.previous_operation_text !== "") {
                 this.changeOperation(operation);
