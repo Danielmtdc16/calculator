@@ -66,6 +66,11 @@ class Calculator {
                 resultOperation = previous / current;
                 this.refreshScreen(resultOperation, operation, current, previous);
                 break;
+            case "%":
+                resultOperation = current / 100;
+                console.log(previous);
+                this.refreshScreen(resultOperation, operation, current, previous);
+                break;
             case "C":
                 this.clearScreen();
                 break;
@@ -86,7 +91,7 @@ class Calculator {
             this.current_operation_text.innerText = this.current_operation;
         }
         else {
-            if (previous === 0) resultOperation = current;
+            if (previous === 0 && operation !== "%") resultOperation = current;
             
             this.previous_operation_text.innerText = `${resultOperation} ${operation}`;
             this.current_operation_text.innerText = "";
