@@ -7,6 +7,8 @@ const buttons = document.querySelectorAll(".button");
 
 class Calculator {
     saveOperation = "";
+    isPercentageOperation = false;
+
     constructor(previous_operation_text, current_operation_text){
         this.previous_operation_text = previous_operation_text;
         this.current_operation_text = current_operation_text;
@@ -28,7 +30,6 @@ class Calculator {
     }
 
     processOperation(operation) {
-
         const specialOperations = ["C", "DEL"];
 
         if (this.current_operation_text.innerText == "" && previous_operation_text.innerText == "") return;
@@ -39,15 +40,30 @@ class Calculator {
             }
             return;
         }
-        if (previous_operation_text.innerText !== "" && operation != this.saveOperation && !specialOperations.includes(operation)) {
+
+        console.log("operation: " + operation);
+        console.log("save operation: " + this.saveOperation);
+
+        if (previous_operation_text.innerText !== "" && operation !== this.saveOperation && !specialOperations.includes(operation)) {
+            console.log("entrei");
+            if (operation === "%") {
+                this.isPercentageOperation = true;
+            }
             this.processOperation(this.saveOperation);
-            this.saveOperation = operation;
-            return this.changeOperation(operation);
+            this.isPercentageOperation = false;
+            if (operation === "%") {
+                return this.changeOperation(this.saveOperation);
+            } else {
+                this.changeOperation(operation);
+                return this.saveOperation = operation;
+            }
         }
+
         this.saveOperation = operation;
         let resultOperation;
         const previous = +this.previous_operation_text.innerText.split(" ")[0];
-        const current = +this.current_operation_text.innerText;
+        let current = +this.current_operation_text.innerText;
+        if (this.isPercentageOperation === true) current = current / 100;
 
         switch(operation) {
             case "+":
@@ -67,8 +83,9 @@ class Calculator {
                 this.refreshScreen(resultOperation, operation, current, previous);
                 break;
             case "%":
-                resultOperation = current / 100;
-                console.log(previous);
+                if (previous !== 0 && this.isPercentageOperation !== true) {
+                    resultOperation = previous * (current / 100);
+                }
                 this.refreshScreen(resultOperation, operation, current, previous);
                 break;
             case "C":
@@ -91,7 +108,7 @@ class Calculator {
             this.current_operation_text.innerText = this.current_operation;
         }
         else {
-            if (previous === 0 && operation !== "%") resultOperation = current;
+            if (previous === 0) resultOperation = current;
             
             this.previous_operation_text.innerText = `${resultOperation} ${operation}`;
             this.current_operation_text.innerText = "";
@@ -102,7 +119,7 @@ class Calculator {
 
     changeOperation(operation) {
         this.saveOperation = operation;
-        const operations = ["+", "-", "/", "x"];
+        const operations = ["+", "-", "/", "x", "%"];
 
         if (!operations.includes(operation)) return;
 
