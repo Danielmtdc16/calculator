@@ -30,7 +30,7 @@ class Calculator {
     }
 
     processOperation(operation) {
-        const specialOperations = ["C", "DEL"];
+        const specialOperations = ["C", "DEL", "="];
 
         if (this.current_operation_text.innerText == "" && previous_operation_text.innerText == "") return;
 
@@ -41,11 +41,7 @@ class Calculator {
             return;
         }
 
-        console.log("operation: " + operation);
-        console.log("save operation: " + this.saveOperation);
-
         if (previous_operation_text.innerText !== "" && operation !== this.saveOperation && !specialOperations.includes(operation)) {
-            console.log("entrei");
             if (operation === "%") {
                 this.isPercentageOperation = true;
             }
@@ -59,10 +55,11 @@ class Calculator {
             }
         }
 
-        this.saveOperation = operation;
+        if (operation !== "=") this.saveOperation = operation;
         let resultOperation;
         const previous = +this.previous_operation_text.innerText.split(" ")[0];
         let current = +this.current_operation_text.innerText;
+        
         if (this.isPercentageOperation === true) current = current / 100;
 
         switch(operation) {
@@ -95,6 +92,9 @@ class Calculator {
                 this.current_operation = "";
                 this.current_operation_text.innerText = this.current_operation_text.innerText.slice(0, -1);
                 this.addNumbers(this.current_operation_text.innerText);
+                break;
+            case "=":
+                this.processOperation(this.saveOperation);
                 break;
             default:
                 return;
@@ -143,4 +143,3 @@ buttons.forEach(btn => {
     });
 
 });
-
